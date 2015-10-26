@@ -4,6 +4,7 @@ A group programming project in the courese Distributed Systems COMP30220, Univer
 ## Team members
 * [brettji](https://github.com/brettji)
 * [jonrh](https://github.com/jonrh)
+* [zyifei](https://github.com/zyifei)
 
 # Assignment 2: Group Programming Project
 This assignment is a team programming project. You should organise yourselves into teams of 2-4 members. The objective of the assignment is to develop a distributed system using the technologies covered in the course. You have freedom to choose what type of system you want to build.
