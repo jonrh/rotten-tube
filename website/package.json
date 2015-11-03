@@ -1,0 +1,17 @@
+{
+  "name": "rotten-tube",
+  "description": "RottenTube, a RottenTomatoes for YouTube channels ",
+  "version": "0.0.1",
+  "contributors": [
+    "Jón Rúnar Helgason <jonrh@jonrh.is> (http://jonrh.is)",
+    "brettji (https://github.com/brettji)",
+    "zyfei (https://github.com/zyifei)"
+  ],
+  "private": true,
+  "license": "ISC",
+  "main": "main.js",
+  "devDependencies": {
+  },
+  "dependencies": {
+  }
+}
