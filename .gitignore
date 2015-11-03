@@ -1,0 +1,9 @@
+# Ignore the WebStorm project folder. Each and one of us should be able to have
+# a separate install without messing with each other.
+.idea
+
+# Ignore all node_modules folders, npm takes care of those.
+*/node_modules
+
+# For OSX, don't add any hidden system files to the repository
+*/.DS_Store

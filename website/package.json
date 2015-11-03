@@ -11,7 +11,7 @@
   "license": "ISC",
   "main": "main.js",
   "devDependencies": {
+    "webpack": "^1.12.2"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
