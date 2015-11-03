@@ -1,6 +1,6 @@
 # RottenTube
 A group programming project in the course Distributed Systems COMP30220,
-University College Dublin. The aim is project is to develop a system that
+University College Dublin. The aim of the project is to develop a system that
 utilises distributed technologies. For this project we chose to use
 [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) and
 [GraphQL](http://graphql.org/). The project that we picked was to create a
