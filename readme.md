@@ -11,7 +11,8 @@ concept [Rotten Tomatoes](http://www.rottentomatoes.com/) for
 RottenTube is a 4 tier application. At the bottom is a MySQL server (will most
 likely be AWS hosted). On top of that is a REST web service. On top of that REST
 service is a GraphQL server. Finally the consuming application is a prototype
-web app that speaks to GraphQL. In this project
+web app that speaks to GraphQL. In this project are 4 sub folders, each 
+corresponding to the 4 previously mentioned tiers.
 
 ## Team members
 * [brettji](https://github.com/brettji)
