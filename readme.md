@@ -18,3 +18,13 @@ corresponding to the 4 previously mentioned tiers.
 * [brettji](https://github.com/brettji)
 * [jonrh](https://github.com/jonrh)
 * [zyifei](https://github.com/zyifei)
+
+## Files and folders
+* **docs**: Contains other documentation such as assignment description. 
+* **graphql**: Contains code for the GraphQL server layer.
+* **mysql**: Contains any files we may need regarding the MySQL database, table 
+definition, scripts, etc.
+* **rest**: Contains code for the REST API.
+* **website**: Code for the React front-end web app.
+* **.gitignore**: A file that tells Git what files we don't want to submit to 
+the repository. For details see [here](http://git-scm.com/docs/gitignore).
