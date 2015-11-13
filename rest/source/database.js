@@ -65,6 +65,24 @@ var Database = {
                 });
             }
         );
+    },
+//gets reviews  based on the id of the channel
+    getReviewsById: function(id) {
+        return new Promise(
+            function(resolve, reject) {
+                const queryStr = "select * from review where id =" + id;
+
+                connection.query(queryStr, function(error, rows, fields) {
+                    if (error)
+                        reject(error);
+
+                   let allReviews = rows.map(row => row.comment);
+                    console.log(allReviews);
+
+                    resolve(allReviews);
+                });
+            }
+        );
     }
 
 };
