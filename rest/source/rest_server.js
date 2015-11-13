@@ -17,12 +17,8 @@ app.get("/namesx/", function (request, response) {
     database.insertName("Samuel").then(data => response.send(data));
 });
 
-
-app.get('/wines', function(req, res) {
-    res.send([{name:'wine1'}, {name:'wine2'}]);
-});
-app.get('/wines/:id', function(req, res) {
-    res.send({id:req.params.id, name: "The Name", description: "description"});
+app.get("/reviews", function(request , response){
+    database.getReviewsById(1).then(data =>response.send(data));
 });
 
 app.listen(3000);
