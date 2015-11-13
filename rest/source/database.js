@@ -28,7 +28,45 @@ var Database = {
                 });
             }
         );
+    },
+
+    getNameById: function(id){
+        return new Promise(
+            function(resolve, reject){
+                const queryStr ="select name from names where id ="+ id
+                connection.query(queryStr, function(error, rows, fields){
+                    if(error)
+                        reject(error);
+
+                    let name = rows[0].name;
+                    console.log(name);
+                    resolve(name);
+
+
+                });
+            }
+        );
+    } ,
+
+
+    insertName: function(name){
+        return new Promise(
+            function(resolve, reject){
+                const queryStr ="insert into names (name) values ('" + name + "')";
+                connection.query(queryStr, function(error, rows, fields){
+                    if(error)
+                        reject(error);
+
+
+                    console.log(rows);
+                    resolve(name);
+
+
+                });
+            }
+        );
     }
+
 };
 
 module.exports = Database;
