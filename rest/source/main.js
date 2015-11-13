@@ -1,3 +1,5 @@
+"use strict";
+
 var mysql = require('mysql');
 
 var connection = mysql.createConnection({
@@ -8,6 +10,7 @@ var connection = mysql.createConnection({
 });
 
 connection.connect();
+
 connection.query('select name from names', function(err, rows, fields){
     if(err) throw err;
 

@@ -6,8 +6,7 @@ var database = require("./database");
 var app = express();
 
 app.get("/names", function(request, response) {
-    var listOfAllNames = database.getAllNames();
-    response.send(listOfAllNames);
+    database.getAllNames().then(allNames => response.send(allNames));
 });
 
 app.get('/wines', function(req, res) {

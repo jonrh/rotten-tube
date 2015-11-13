@@ -13,15 +13,21 @@ connection.connect();
 
 var Database = {
     getAllNames: function() {
-        var results = [];
+        return new Promise(
+            function(resolve, reject) {
+                const queryStr = "select name from names";
 
-        connection.query('select name from names', function(err, rows, fields) {
-            if(err) throw err;
-            results = rows.map(row => row.name);
-            console.log("Inside: "+ results)
-        });
-        console.log("Outside: "+ results);
-        return results;
+                connection.query(queryStr, function(error, rows, fields) {
+                    if (error)
+                        reject(error);
+
+                    let allNames = rows.map(row => row.name);
+                    console.log(allNames);
+
+                    resolve(allNames);
+                });
+            }
+        );
     }
 };
 
