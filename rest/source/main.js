@@ -10,7 +10,10 @@ var connection = mysql.createConnection({
 connection.connect();
 connection.query('select name from names', function(err, rows, fields){
     if(err) throw err;
-    console.log(rows);
+
+    var result = rows.map(row => row.name);
+
+    console.log(result);
 });
 
 connection.end();
