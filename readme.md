@@ -18,6 +18,7 @@ corresponding to the 4 previously mentioned tiers.
 * [brettji](https://github.com/brettji)
 * [jonrh](https://github.com/jonrh)
 * [zyifei](https://github.com/zyifei)
+* [Radha13](https://github.com/Radha13)
 
 ## Files and folders
 * **docs**: Contains other documentation such as assignment description. 
