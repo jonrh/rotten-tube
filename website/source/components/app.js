@@ -1,31 +1,34 @@
 import React from "react";
-const Card = require('material-ui/lib/card/card');
-const CardActions = require('material-ui/lib/card/card-actions');
-const CardHeader = require('material-ui/lib/card/card-header');
-const CardMedia = require('material-ui/lib/card/card-media');
-const CardText = require('material-ui/lib/card/card-text');
-const CardTitle = require('material-ui/lib/card/card-title');
-const FlatButton = require('material-ui/lib/flat-button');
+const Paper = require('material-ui/lib/paper');
+import { Button, Grid, Row, Col, Image } from "react-bootstrap";
 
 class App extends React.Component {
     render() {
         return (
-            <Card style={{maxWidth: "800px", align: "center"}}>
-                <CardMedia>
-                    <img src="rottentube_logo.png" />
-                </CardMedia>
-                <CardTitle title="Title" subtitle="Subtitle"/>
-                <CardActions>
-                    <FlatButton label="Action1"/>
-                    <FlatButton label="Action2"/>
-                </CardActions>
-                <CardText>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-                    Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-                    Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
-                </CardText>
-            </Card>
+            <Grid>
+                <Row>
+                    <Col md={12}>
+                        <Image src="rottentube_logo.png" className="center-block" responsive />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col md={4}>
+                        <Paper zDepth={5}>
+                            <p>Category 1</p>
+                        </Paper>
+                    </Col>
+                    <Col md={4}>
+                        <Paper zDepth={5}>
+                            <p>Category 2</p>
+                        </Paper>
+                    </Col>
+                    <Col md={4}>
+                        <Paper zDepth={5}>
+                            <p>Category 3</p>
+                        </Paper>
+                    </Col>
+                </Row>
+            </Grid>
         );
     }
 }

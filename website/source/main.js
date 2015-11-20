@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App2 from "./components/app2";
+import App from "./components/app";
 
 ReactDOM.render(
-    <App2 name="jónsi" />,
+    <App name="jónsi" />,
     document.getElementById('app_content')
 );
