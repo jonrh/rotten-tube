@@ -8,7 +8,8 @@ create table if not exists channel (
   id int not null auto_increment primary key,
   name text not null,
   url text not null,
-  category  text not null
+  category  text not null,
+  rating int not null
 
 );
 
@@ -23,8 +24,8 @@ create table if not exists review (
 );
 
 
-insert into channel (name, url, category) values('You Suck at Cooking','https://www.youtube.com/channel/UCekQr9znsk2vWxBo3YiLq2w','Cooking');
-insert into channel (name, url, category) values('How to Cook That','https://www.youtube.com/user/howtocookthat','Cooking');
+insert into channel (name, url, category, rating) values('You Suck at Cooking','https://www.youtube.com/channel/UCekQr9znsk2vWxBo3YiLq2w','Cooking', 8);
+insert into channel (name, url, category, rating) values('How to Cook That','https://www.youtube.com/user/howtocookthat','Cooking', 6);
 insert into review (username, comment, rating, channel_id) values ('Jillian B', 'BEST CHANNEL EVER', 10,  1);
 insert into review (username, comment, rating, channel_id) values ('Samuel F', 'Its ok', 6,  1);
 

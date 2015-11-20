@@ -21,5 +21,20 @@ app.get("/reviews", function(request , response){
     database.getReviewsById(1).then(data =>response.send(data));
 });
 
+app.get("/channels", function(request , response){
+    database.getChannelsByCategory("Cooking").then(data =>response.send(data));
+
+});
+
+app.get("/channel", function(request , response){
+    database.getChannelById(1).then(data =>response.send(data));
+
+});
+
+
+app.get("/review", function(request , response){
+    database.postReview("Jillian", "really bad", 1, 1).then(data =>response.send(data));
+});
+
 app.listen(3000);
 console.log('Listening on port 3000...');

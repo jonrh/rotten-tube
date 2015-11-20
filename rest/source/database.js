@@ -70,7 +70,7 @@ var Database = {
     getReviewsById: function(id) {
         return new Promise(
             function(resolve, reject) {
-                const queryStr = "select * from review where id =" + id;
+                const queryStr = "select * from review where channel_id =" + id;
 
                 connection.query(queryStr, function(error, rows, fields) {
                     if (error)
@@ -83,7 +83,66 @@ var Database = {
                 });
             }
         );
-    }
+    },
+ //get list of channels for a category - sorted by rating in descending order
+    getChannelsByCategory: function(category) {
+        return new Promise(
+            function(resolve, reject) {
+                const queryStr = "select * from channel where category = '" + category + "' order by rating DESC";
+
+                connection.query(queryStr, function(error, rows, fields) {
+                    if (error)
+                        reject(error);
+
+                    let allChannels = rows.map(row => row.name);
+                    console.log(allChannels);
+
+                    resolve(allChannels);
+                });
+            }
+        );
+    },
+
+    //retuns channel details based on an id
+    getChannelById: function(id) {
+        return new Promise(
+            function(resolve, reject) {
+                const queryStr = "select * from channel where id = " + id ;
+
+                connection.query(queryStr, function(error, rows, fields) {
+                    if (error)
+                        reject(error);
+
+                    let Channel = rows.map(row => row.name);
+                    console.log(Channel);
+
+                    resolve(Channel);
+                });
+            }
+        );
+    },
+
+    postReview: function(review_user , review_comment, review_rating , channel_id) {
+        return new Promise(
+            function(resolve, reject) {
+
+
+                const queryStr = "insert into review (username, comment, rating, channel_id) values ('" + review_user + "','"+review_comment +"',"
+                    + review_rating +","+ channel_id +")";
+
+                connection.query(queryStr, function(error, rows, fields) {
+                    if (error)
+                        reject(error);
+
+                   // let Channel = rows.map(row => row.name);
+                   // console.log(Channel);
+
+                    resolve("Review posted");
+                });
+            }
+        );
+    },
+
 
 };
 
