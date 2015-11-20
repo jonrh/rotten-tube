@@ -13,7 +13,7 @@ module.exports = {
                 loader: "babel-loader",
                 query: {
                     // tells babel-loader we want to use ES6 features
-                    presets: ['es2015']
+                    presets: ["es2015", "react"]
                 }
             }
         ]
