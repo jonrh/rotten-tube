@@ -1,29 +1,38 @@
 import React from "react";
 import { Button, Grid, Row, Col, Image } from "react-bootstrap";
 
-import CategoryOverview from "./categoryOverview";
+import FrontPage from "./FrontPage/FrontPage";
+import ChannelPage from "./ChannelPage/ChannelPage";
 
 class App extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            route: window.location.hash.substr(1)
+        };
+    }
+
+    componentDidMount() {
+        window.addEventListener("hashchange", () => {
+           this.setState({
+               route: window.location.hash.substr(1)
+           });
+        });
+    }
+
     render() {
+        let PageToRender;
+
+        switch (this.state.route) {
+            case "/channel":
+                PageToRender = ChannelPage;
+                break;
+            default:
+                PageToRender = FrontPage;
+        }
+
         return (
-            <Grid className="frontPage">
-                <Row>
-                    <Col md={12}>
-                        <Image id="logo" src="rottentube_logo.png" className="center-block" responsive />
-                    </Col>
-                </Row>
-                <Row>
-                    <Col md={4}>
-                        <CategoryOverview categoryName="Category 1" />
-                    </Col>
-                    <Col md={4}>
-                        <CategoryOverview categoryName="Category 2" />
-                    </Col>
-                    <Col md={4}>
-                        <CategoryOverview categoryName="Category 3" />
-                    </Col>
-                </Row>
-            </Grid>
+            <PageToRender />
         );
     }
 }

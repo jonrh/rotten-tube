@@ -15,3 +15,7 @@ html {
 #logo {
     width: 50%;
 }
+
+#logo.small {
+    width: 25%;
+}
