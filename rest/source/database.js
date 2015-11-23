@@ -113,10 +113,7 @@ var Database = {
                     if (error)
                         reject(error);
 
-                    let Channel = rows.map(row => row.name);
-                    console.log(Channel);
-
-                    resolve(Channel);
+                    resolve(rows[0]);
                 });
             }
         );
