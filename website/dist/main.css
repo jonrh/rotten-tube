@@ -8,14 +8,20 @@ html {
     padding-bottom: 0.5em;
 }
 
+.channelPage h1 {
+    text-align: center;
+}
+
 .frontPage ul {
     padding-bottom: 2em;
 }
 
+/* By default the logo should take 50%, mostly used on the front page */
 #logo {
     width: 50%;
 }
 
+/* When we are not on the front page, shrink the logo */
 #logo.small {
     width: 25%;
 }

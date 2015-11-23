@@ -20,26 +20,27 @@ import { cookingChannels } from "./../../mockData.js";
 class CategoryOverview extends React.Component {
     constructor(props) {
         super(props);
-        const channels = this.fetchChannel("channel");
-        this.state = {channels: channels};
+        //this.state = {channels: channels};
     }
 
-    fetchChannel(channelName) {
+    fetchCategory(categoryName) {
         return cookingChannels;
     }
 
     render() {
-        const channels = this.state.channels.map(function(channel) {
+        const channels = this.props.category.channels.map(function(channel) {
+            const link = "#/"+ channel.channelID;
+
             return (
                 <li key={channel.channelID}>
-                    <a href="#/channel">{channel.channelName}</a>
+                    <a href={link}>{channel.channelName}</a>
                 </li>
             );
         });
 
         return (
             <Paper zDepth={5}>
-                <h1>{this.props.categoryName}</h1>
+                <h1>{this.props.category.categoryName}</h1>
                 <ul>
                     {channels}
                 </ul>
@@ -48,6 +49,11 @@ class CategoryOverview extends React.Component {
     }
 }
 
-CategoryOverview.propTypes = { categoryName: React.PropTypes.string };
+CategoryOverview.propTypes = {
+    category: React.PropTypes.shape({
+        categoryName: React.PropTypes.string,
+        channels: React.PropTypes.array
+    })
+};
 
 export default CategoryOverview
