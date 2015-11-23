@@ -28,7 +28,6 @@ app.get("/reviews", function(request , response){
 app.get("/channels", function(request , response){
     database.getChannelsByCategory("Cooking")
         .then(data =>response.send(data));
-
 });
 
 app.get("/channels/:id", function(request , response){
