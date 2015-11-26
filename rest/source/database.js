@@ -76,10 +76,10 @@ var Database = {
                     if (error)
                         reject(error);
 
-                   let allReviews = rows.map(row => row.comment);
-                    console.log(allReviews);
+                    //let allReviews = rows.map(row => row.comment);
+                    //console.log(allReviews);
 
-                    resolve(allReviews);
+                    resolve(rows);
                 });
             }
         );
