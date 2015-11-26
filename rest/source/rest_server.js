@@ -40,5 +40,13 @@ app.get("/review", function(request , response){
         .then(data =>response.send(data));
 });
 
+
+app.get("/review", function(request , response){
+    //updateRating(id , new_rating )
+    database.updateRating(1, 1)
+        .then(data =>response.send(data));
+});
+
+
 app.listen(3000);
 console.log('Listening on port 3000...');

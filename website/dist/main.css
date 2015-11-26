@@ -18,10 +18,14 @@ html {
 
 /* By default the logo should take 50%, mostly used on the front page */
 #logo {
-    width: 50%;
+    width: 30%;
 }
 
 /* When we are not on the front page, shrink the logo */
 #logo.small {
-    width: 25%;
+    width: 15%;
+}
+
+#app_content {
+    padding-bottom: 10em;
 }

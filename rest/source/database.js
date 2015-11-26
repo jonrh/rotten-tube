@@ -141,6 +141,19 @@ var Database = {
     },
 
 
+    updateRating: function(id, new_rating) { 
+        return new Promise( function(resolve, reject) {   
+            const queryStr = "update channel set rating = " + new_rating +  " where id =" + id;  
+            connection.query(queryStr, function(error, rows, fields) { 
+                if (error)  reject(error);  
+                //console.log(Channel);  
+                 resolve("Rating updated"); 
+            }); 
+        } 
+
+        ); }
+
+
 };
 
 module.exports = Database;
