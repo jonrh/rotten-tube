@@ -1,8 +1,18 @@
+"use strict";
+
 import React from "react";
 import { Button, Grid, Row, Col, Image } from "react-bootstrap";
 
+import { fetchReviews } from "./../../data_fetching/rest.js";
+
 class ChannelPage extends React.Component {
+    fetchReviewsX(channelID) {
+        fetchReviews(channelID).then(reviews => console.log(reviews));
+    }
+
     render() {
+        this.fetchReviewsX(1);
+
         return (
             <Grid className="channelPage">
                 <Row>
