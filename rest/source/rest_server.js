@@ -1,9 +1,14 @@
 "use strict";
 
 var express = require("express");
+var cors = require("cors"); // https://github.com/expressjs/cors
+
 var database = require("./database");
 
 var app = express();
+
+// Make all request CORS enabled so our SPA website can get it's resources
+app.use(cors());
 
 app.get("/names", function(request, response) {
     database.getAllNames()
@@ -20,8 +25,11 @@ app.get("/namesx/", function (request, response) {
         .then(data => response.send(data));
 });
 
-app.get("/reviews", function(request , response){
-    database.getReviewsById(1)
+/**
+ * Returns a list of reviews for a given channel ID
+ */
+app.get("/reviews/:id", function(request , response){
+    database.getReviewsById(request.params.id)
         .then(data =>response.send(data));
 });
 
