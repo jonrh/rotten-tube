@@ -2,6 +2,7 @@ import React from "react";
 import { Button, Grid, Row, Col, Image } from "react-bootstrap";
 
 import CategoryOverview from "./categoryOverview";
+import { fetchChannelsByCategory } from "./../../data_fetching/rest.js";
 import { frontPageCategories } from "./../../mockData";
 
 class FrontPage extends React.Component {
@@ -17,13 +18,13 @@ class FrontPage extends React.Component {
                 </Row>
                 <Row>
                     <Col md={4}>
-                        <CategoryOverview category={frontPageCategories[0]}/>
+                        <CategoryOverview categoryName="Cooking"/>
                     </Col>
                     <Col md={4}>
-                        <CategoryOverview category={frontPageCategories[1]}/>
+                        <CategoryOverview categoryName="Comedy" />
                     </Col>
                     <Col md={4}>
-                        <CategoryOverview category={frontPageCategories[2]}/>
+                        <CategoryOverview categoryName="Traveling" />
                     </Col>
                 </Row>
             </Grid>

@@ -5,15 +5,57 @@ import { Button, Grid, Row, Col, Image, Input } from "react-bootstrap";
 const Paper = require('material-ui/lib/paper');
 const TextField = require('material-ui/lib/text-field');
 
-import { fetchReviews } from "./../../data_fetching/rest.js";
+import Review from "./Review";
+import { fetchReviews, fetchChannelByID, postReview } from "./../../data_fetching/rest.js";
 
 class ChannelPage extends React.Component {
-    fetchReviewsX(channelID) {
-        fetchReviews(channelID).then(reviews => console.log(reviews));
+    constructor(props) {
+        super(props);
+        this.state = {
+            channel: {
+                id: 0,
+                name: "",
+                url: "",
+                category: "",
+                rating: 0
+            }
+        };
+
+        this.fetchChannelAndReviews();
+    }
+
+    fetchChannelAndReviews() {
+        fetchReviews(this.props.channelID).then(listOfReviews => {
+            this.setState({
+                reviews: listOfReviews
+            });
+        });
+
+        fetchChannelByID(this.props.channelID).then(channel => {
+            this.setState({
+                channel: channel
+            });
+        });
+    }
+
+    handleReviewSubmit(event) {
+        const name = this.refs.name.getValue();
+        const rating = this.refs.rating.getValue();
+        const comment = this.refs.comment.getValue();
+
+        postReview(this.props.channelID, name, rating, comment)
+            .then(() => {
+                this.fetchChannelAndReviews();
+            });
     }
 
     render() {
-        this.fetchReviewsX(1);
+        let reviews = <span></span>;
+        if (this.state && this.state.reviews) {
+            reviews = this.state.reviews.map(review => {
+                return <Review review={review} />
+            });
+        }
 
         return (
             <Grid className="channelPage">
@@ -26,7 +68,7 @@ class ChannelPage extends React.Component {
                 </Row>
                 <Row>
                     <Col md={12}>
-                        <h1>Name of channel</h1>
+                        <h1>{this.state.channel.name}</h1>
                     </Col>
                 </Row>
                 <Row>
@@ -41,49 +83,39 @@ class ChannelPage extends React.Component {
                     </Col>
                 </Row>
                 <br />
+
                 <h2>Reviews:</h2>
                 <Paper zDepth={2} rounded={false}>
-                <Row>
-                    <Col md={1}></Col>
-                    <Col md={10}>
-
-                        <h3>Name: Jillian </h3>
-
-                        <p>This is my review blah blah blah blah ......</p><br />
-
-                    </Col>
-                    <Col md={1}></Col>
-                    <br />
-                </Row>
+                    {reviews}
                 </Paper>
                 <br />
                 <Paper zDepth={2} rounded={false}>
 
                 <Row>
-                    <Col md={1}></Col>
-                    <Col md={3}>
+                    <Col md={3}></Col>
+                    <Col md={6}>
 
                         <h2>Write a review</h2>
-                        <Input type="text" label="Name" placeholder="Put your name here sure" />
+                        <Input type="text" label="Name" ref="name" placeholder="Put your name here sure" />
 
-                        <Input type="select" label="Rating" placeholder="select">
-                            <option value="select">select</option>
-                            <option value="one">1 - Terrible.</option>
-                            <option value="two">2 - Not worth my time</option>
-                            <option value="three">3 - Radha's love for the Irish climate</option>
-                            <option value="four">4 - Not my cup of tea</option>
-                            <option value="five">5 - It's ok</option>
-                            <option value="six">6 - I wouldn't kick it out of bed </option>
-                            <option value="seven">7 - I like it </option>
-                            <option value="eight">8 - Beer</option>
-                            <option value="nine">9 - I love it</option>
-                            <option value="ten">10 - Better than Rems teaching (Impossible)</option>
+                        <Input type="select" label="Rating" ref="rating" placeholder="select">
+                            <option value="0">select</option>
+                            <option value="1">1 - Terrible.</option>
+                            <option value="2">2 - Not worth my time</option>
+                            <option value="3">3 - Radha's love for the Irish climate</option>
+                            <option value="4">4 - Not my cup of tea</option>
+                            <option value="5">5 - It's ok</option>
+                            <option value="6">6 - I wouldn't kick it out of bed </option>
+                            <option value="7">7 - I like it </option>
+                            <option value="8">8 - Dog's bollocks</option>
+                            <option value="9">9 - I love it</option>
+                            <option value="10">10 - Better than Rems teaching (Impossible)</option>
                         </Input>
-                        <Input type="textarea" label="Comment" placeholder="Got something to say ??" />
-                        <Button  active>Submit Review</Button>
+                        <Input type="textarea" label="Comment" ref="comment" placeholder="Got something to say ??" />
+                        <Button onClick={this.handleReviewSubmit.bind(this)} active>Submit Review</Button>
 
                     </Col>
-                    <Col md={1}></Col>
+                    <Col md={3}></Col>
                 </Row>
                     <br />
                 </Paper>

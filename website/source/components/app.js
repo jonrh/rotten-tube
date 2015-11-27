@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Grid, Row, Col, Image } from "react-bootstrap";
 
 import FrontPage from "./FrontPage/FrontPage";
-import ChannelPage from "./ChannelPage/ChannelPage";
+import ChannelPage from "./ChannelPage/ChannelPage.js";
 
 /**
  * The
@@ -35,16 +35,14 @@ class App extends React.Component {
     }
 
     render() {
-        let PageToRender;
+        let pageToRender;
 
         if (this.state.selectedChannelID === "")
-            PageToRender = FrontPage;
+            pageToRender = <FrontPage />;
         else
-            PageToRender = ChannelPage;
+            pageToRender = <ChannelPage channelID = {this.state.selectedChannelID} />;
 
-        return (
-            <PageToRender />
-        );
+        return pageToRender;
     }
 }
 

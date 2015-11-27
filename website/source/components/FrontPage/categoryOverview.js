@@ -1,6 +1,6 @@
 import React from "react";
 import { Paper } from "material-ui";
-import { cookingChannels } from "./../../mockData.js";
+import { fetchChannelsByCategory } from "./../../data_fetching/rest.js";
 
 /**
  * A React component that renders an overview of YouTube channels in a specific
@@ -20,27 +20,33 @@ import { cookingChannels } from "./../../mockData.js";
 class CategoryOverview extends React.Component {
     constructor(props) {
         super(props);
-        //this.state = {channels: channels};
-    }
 
-    fetchCategory(categoryName) {
-        return cookingChannels;
+        this.state = {
+            channels: []
+        };
+
+        fetchChannelsByCategory(this.props.categoryName).then(channels => {
+            console.log(channels);
+            this.setState({
+                channels: channels
+            });
+        });
     }
 
     render() {
-        const channels = this.props.category.channels.map(function(channel) {
-            const link = "#/"+ channel.channelID;
+        const channels = this.state.channels.map(channel => {
+            const link = "#/"+ channel.id;
 
             return (
-                <li key={channel.channelID}>
-                    <a href={link}>{channel.channelName}</a>
+                <li key={channel.id}>
+                    <a href={link}>{channel.name}</a>
                 </li>
             );
         });
 
         return (
             <Paper zDepth={5}>
-                <h1>{this.props.category.categoryName}</h1>
+                <h1>{this.props.categoryName}</h1>
                 <ul>
                     {channels}
                 </ul>
@@ -48,12 +54,5 @@ class CategoryOverview extends React.Component {
         );
     }
 }
-
-CategoryOverview.propTypes = {
-    category: React.PropTypes.shape({
-        categoryName: React.PropTypes.string,
-        channels: React.PropTypes.array
-    })
-};
 
 export default CategoryOverview
