@@ -70,34 +70,36 @@ var Database = {
     getReviewsById: function(id) {
         return new Promise(
             function(resolve, reject) {
-                const queryStr = "select * from review where channel_id =" + id;
+                const queryStr = "select * from reviews where channel_id =" + id;
 
                 connection.query(queryStr, function(error, rows, fields) {
                     if (error)
                         reject(error);
 
-                    //let allReviews = rows.map(row => row.comment);
-                    //console.log(allReviews);
+                    //console.log(rows);
 
                     resolve(rows);
                 });
             }
         );
     },
- //get list of channels for a category - sorted by rating in descending order
+
+    //get list of channels for a category - sorted by rating in descending order
     getChannelsByCategory: function(category) {
         return new Promise(
             function(resolve, reject) {
-                const queryStr = "select * from channel where category = '" + category + "' order by rating DESC";
+                const queryStr = "select * from channels where category = '" + category + "' order by rating DESC";
 
                 connection.query(queryStr, function(error, rows, fields) {
                     if (error)
                         reject(error);
 
-                    let allChannels = rows.map(row => row.name);
-                    console.log(allChannels);
+                    resolve(rows);
 
-                    resolve(allChannels);
+                    //let allChannels = rows.map(row => row.name);
+                    //console.log(allChannels);
+
+                    //resolve(allChannels);
                 });
             }
         );
@@ -107,7 +109,7 @@ var Database = {
     getChannelById: function(id) {
         return new Promise(
             function(resolve, reject) {
-                const queryStr = "select * from channel where id = " + id ;
+                const queryStr = "select * from channels where id = " + id ;
 
                 connection.query(queryStr, function(error, rows, fields) {
                     if (error)
@@ -122,14 +124,15 @@ var Database = {
     postReview: function(review_user , review_comment, review_rating , channel_id) {
         return new Promise(
             function(resolve, reject) {
-
-
-                const queryStr = "insert into review (username, comment, rating, channel_id) values ('" + review_user + "','"+review_comment +"',"
+                const queryStr = "insert into reviews (username, comment, rating, channel_id) values ('" + review_user + "','"+review_comment +"',"
                     + review_rating +","+ channel_id +")";
 
+                console.log(queryStr);
+
                 connection.query(queryStr, function(error, rows, fields) {
-                    if (error)
+                    if (error) {
                         reject(error);
+                    }
 
                    // let Channel = rows.map(row => row.name);
                    // console.log(Channel);
@@ -143,7 +146,7 @@ var Database = {
 
     updateRating: function(id, new_rating) { 
         return new Promise( function(resolve, reject) {   
-            const queryStr = "update channel set rating = " + new_rating +  " where id =" + id;  
+            const queryStr = "update channels set rating = " + new_rating +  " where id =" + id;  
             connection.query(queryStr, function(error, rows, fields) { 
                 if (error)  reject(error);  
                 //console.log(Channel);  

@@ -2,6 +2,7 @@
 
 var express = require("express");
 var cors = require("cors"); // https://github.com/expressjs/cors
+var bodyParser = require('body-parser');
 
 var database = require("./database");
 
@@ -9,6 +10,9 @@ var app = express();
 
 // Make all request CORS enabled so our SPA website can get it's resources
 app.use(cors());
+
+// Use body-parser so we can get content from POST requests
+app.use(bodyParser.json());
 
 app.get("/names", function(request, response) {
     database.getAllNames()
@@ -29,12 +33,13 @@ app.get("/namesx/", function (request, response) {
  * Returns a list of reviews for a given channel ID
  */
 app.get("/reviews/:id", function(request , response){
+    //console.log("REST: reuqest to /reviews/:id");
     database.getReviewsById(request.params.id)
-        .then(data =>response.send(data));
+        .then(data => response.send(data));
 });
 
-app.get("/channels", function(request , response){
-    database.getChannelsByCategory("Cooking")
+app.get("/channels/category/:category", function(request , response){
+    database.getChannelsByCategory(request.params.category)
         .then(data =>response.send(data));
 });
 
@@ -43,9 +48,10 @@ app.get("/channels/:id", function(request , response){
         .then(data =>response.send(data));
 });
 
-app.get("/review", function(request , response){
-    database.postReview("Jillian", "really bad", 1, 1)
-        .then(data =>response.send(data));
+app.post("/reviews", function(request, response) {
+    const review = request.body;
+    database.postReview(review.name, review.comment, review.rating, review.channelID)
+        .then(data => response.send("Review posted"));
 });
 
 
