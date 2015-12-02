@@ -1,10 +1,40 @@
-import request from "superagent";
+/**
+ * A gateway to the REST API. We assume the API is run on localhost on port 3000.
+ *
+ * Note: we use ES6 Promises for API call results but we are doing it somewhat
+ * wrong. For example we do not bother much with handling when errors occur. We
+ * do this for for "convenience" as time allotted for the assignment was very
+ * tight.
+ *
+ * University College Dublin, semester 1, autumn 2015
+ * Module: COMP30220 Distributed Systems
+ * Lecturer: Rem Collier
+ *
+ * Language: JavaScript, ES6
+ *
+ * Authors:
+ *  - Jón Rúnar Helgason, jonrh@jonrh.is, @jonrh
+ */
 
 "use strict";
 
+import request from "superagent";
+
 const REST_URL = "http://localhost:3000";
 
-/** Used for inital testing when wiring things together */
+/** Fetches a list of names.
+ *
+ * When we started the project we used a simple /names/ resource when we were
+ * wiring and connecting the different components (MySQL, REST, web app, etc).
+ * After we got the wiring we moved on to the /channels/ and /reviews/ resources
+ * to make our desired app. We therefore don't use this any more but we'll leave
+ * it for the sake of history ＼(^o^)／
+ *
+ * Example return if there are no errors:
+ *
+ *      ["Jón Rúnar", "Jill", "Yifei", "Radha", "Samuel"]
+ *
+ */
 export const getNames = () => {
     request
         .get("http://localhost:3000/names/")
@@ -21,7 +51,28 @@ export const getNames = () => {
         });
 };
 
-export const fetchReviews = (channelID) => {
+/**
+ * Fetches a list of reviews for a given channel ID by making a GET request to
+ * the REST API.
+ *
+ * Example output given no errors occurred:
+ *
+ *  [
+ *      {
+ *          id: 1337,
+ *          username: "Donald Trump",
+ *          comment: "BEST CHANNEL EVER",
+ *          rating: 10,
+ *          channel_id: 42
+ *      },
+ *
+ *      ... more reviews
+ *  ]
+ *
+ * @param channelID, the integer ID of the channel row in MySQL
+ * @returns {Promise}
+ */
+export const fetchReviews = channelID => {
     return new Promise(
         function(resolve, reject) {
             request
@@ -37,6 +88,28 @@ export const fetchReviews = (channelID) => {
     );
 };
 
+/**
+ * Fetches channels by a specified category string by making a GET request to
+ * the REST API.
+ *
+ * Example output given no errors occurred:
+ *
+ *      [
+ *          {
+ *              id: 1337,
+ *              name: "You Suck at Cooking",
+ *              url: "https://www.youtube.com/channel/UCekQr9znsk2vWxBo3YiLq2w",
+ *              category: "Cooking",
+ *              rating: 8
+ *          },
+ *
+ *          ... more channels in the Cooking category
+ *      ]
+ *
+ * @param category, string. Given the database 3 values are available: "Comedy",
+ * "Travel", "Cooking".
+ * @returns {Promise}
+ */
 export const fetchChannelsByCategory = category => {
     return new Promise(
         function(resolve, reject) {
@@ -53,7 +126,23 @@ export const fetchChannelsByCategory = category => {
     );
 };
 
-
+/**
+ * Fetches a channel object given a channel ID by making a GET request to the
+ * REST API.
+ *
+ * Example output given no errors occurred:
+ *
+ *      {
+ *          id: 1337,
+ *          name: "You Suck at Cooking",
+ *          url: "https://www.youtube.com/channel/UCekQr9znsk2vWxBo3YiLq2w",
+ *          category: "Cooking",
+ *          rating: 8
+ *      }
+ *
+ * @param channelID, the integer ID of the channel row in MySQL
+ * @returns {Promise}
+ */
 export const fetchChannelByID = channelID => {
     return new Promise(
         function(resolve, reject) {
@@ -70,6 +159,18 @@ export const fetchChannelByID = channelID => {
     );
 };
 
+/**
+ * Posts a new review for a YouTube channel by doing a POST request to the REST
+ * API.
+ *
+ * @param channelID, the integer ID of the channel row in MySQL
+ * @param name, the name of the author, string. Example: "Donald Trump"
+ * @param rating, integer on the scale 1-10 (including 1 and 10). 1 is the
+ * lowest rating possible while 10 is the best.
+ * @param comment, string, optional review text. E.g. "Progressive channel with
+ * witty humor".
+ * @returns {Promise}
+ */
 export const postReview = (channelID, name, rating, comment) => {
     const jsonReview = {
         channelID,
@@ -77,8 +178,6 @@ export const postReview = (channelID, name, rating, comment) => {
         rating,
         comment
     };
-
-    console.log(jsonReview);
 
     return new Promise(
         function(resolve, reject) {

@@ -78,13 +78,10 @@ export const channel9 = {
     channelURL: "url"
 };
 
-
+/* Few convenience lists of channels */
 export const cookingChannels = [channel1, channel2, channel3];
 export const comedyChannels = [channel4, channel5, channel6];
 export const travelChannels = [channel7, channel8, channel9];
-
-/* Mock reviews */
-// none so far
 
 /* Mock YouTube channels */
 export const frontPageCategories = [
