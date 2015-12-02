@@ -10,7 +10,7 @@ html {
 
 .channelPage h1 {
     text-align: center;
-    padding-bottom: 1.5em;
+    padding-bottom: 0.5em;
 }
 
 .frontPage ul {
@@ -33,4 +33,12 @@ html {
 
 .review {
     padding-left: 1.5em;
+}
+
+.littleBitOfMarginNeverHurtNobody {
+    margin: 1.5em;
+}
+
+.littleBitOfPaddingNeverHurtNobody {
+    padding: 1.5em;
 }
