@@ -1,11 +1,14 @@
 import Sequelize from 'sequelize';
 
 // Create a mysql connection to the Amazon RDS instance.
-// Change the credentials before deploying.
+// Set the credentials as node env variables before deploying.
 
-var Connection = new Sequelize('_DB-name_', '_user-name_', '_password_', {
+var Connection = new Sequelize(
+        process.env.database_name,
+        process.env.my_user,
+        process.env.my_pass, {
 	dialect: 'mysql',
-	host: 'rottentube.cpaepwofqo5u.us-west-2.rds.amazonaws.com'
+	host: process.env.database_name
 	}
 );
 
