@@ -3,7 +3,9 @@ import {
 		GraphQLSchema,
 		GraphQLObjectType,
 		GraphQLString,
-		GraphQLInt
+		GraphQLInt,
+		GraphQLSchema,
+		GraphQLList
 } from 'graphql';
 import Db from './db';
 
@@ -99,3 +101,54 @@ fields: () => ({
 });
 
 // Queries
+// Find channel based on the _args_ which are id, name, url and category.
+
+var query = new GraphQLObjectType({
+	name: 'Query',
+	description: 'This is a root query',
+	fields: () => ({
+		channel: {
+			type: new GraphQLList(channels),
+			args: {
+				id: {
+					type: GraphQLInt
+				},
+				name: {
+					type: GraphQLString
+				},
+				url: {
+					type: GraphQLString
+				},
+				category: {
+					type: GraphQLString
+				}
+			},
+			resolve(root, args) {
+				return Db.models.channelsfindAll({where: args});
+			}
+		},
+		review: {
+			type: new GraphQLList(reviews),
+			args: {
+				id: {
+					type: GraphQLInt
+				},
+				username: {
+					type: GraphQLString
+				},
+				channel_id: {
+					type: channels
+				}
+			},
+			resolve(root, args) {
+				return Db.models.channelsfindAll({where: args});
+			}
+		},
+	})
+})
+
+var Schema = new GraphQLSchema({
+  query: Query
+});
+
+export default schema;
