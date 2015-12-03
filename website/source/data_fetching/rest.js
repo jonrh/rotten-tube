@@ -5,15 +5,6 @@
  * wrong. For example we do not bother much with handling when errors occur. We
  * do this for for "convenience" as time allotted for the assignment was very
  * tight.
- *
- * University College Dublin, semester 1, autumn 2015
- * Module: COMP30220 Distributed Systems
- * Lecturer: Rem Collier
- *
- * Language: JavaScript, ES6
- *
- * Authors:
- *  - Jón Rúnar Helgason, jonrh@jonrh.is, @jonrh
  */
 
 "use strict";

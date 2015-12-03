@@ -1,3 +1,5 @@
+"use strict";
+
 import React from "react";
 import { Paper } from "material-ui";
 import { fetchChannelsByCategory } from "./../../data_fetching/rest.js";
@@ -25,8 +27,8 @@ class CategoryOverview extends React.Component {
             channels: []
         };
 
+        // Fetch from the API the channels belonging to this category
         fetchChannelsByCategory(this.props.categoryName).then(channels => {
-            console.log(channels);
             this.setState({
                 channels: channels
             });
@@ -35,6 +37,8 @@ class CategoryOverview extends React.Component {
 
     render() {
         const channels = this.state.channels.map(channel => {
+            // This is one of our dirty hacks. Since we're not using a proper
+            // router we simply let hrefs do to move around in the app.
             const link = "#/"+ channel.id;
 
             return (

@@ -7,6 +7,9 @@ import Paper from "material-ui/lib/paper";
 import Review from "./Review";
 import { fetchReviews, fetchChannelByID, postReview } from "./../../data_fetching/rest.js";
 
+/**
+ *
+ */
 class ChannelPage extends React.Component {
     constructor(props) {
         super(props);
@@ -23,6 +26,11 @@ class ChannelPage extends React.Component {
         this.fetchChannelAndReviews();
     }
 
+    /**
+     * A convenience method to get from the REST API the channel we're supposed
+     * to display as well as the reviews that belong to it. Once it arrives it
+     * updates the state of this component.
+     */
     fetchChannelAndReviews() {
         fetchReviews(this.props.channelID).then(listOfReviews => {
             this.setState({
@@ -37,11 +45,17 @@ class ChannelPage extends React.Component {
         });
     }
 
-    handleReviewSubmit(event) {
+    /**
+     * When the Write review submit button is pressed.
+     */
+    handleReviewSubmit() {
         const name = this.refs.name.getValue();
         const rating = this.refs.rating.getValue();
         const comment = this.refs.comment.getValue();
 
+        // Post the review to the REST API and then ask for the new review list
+        // from the API. Once fetched the state will be updated and the UI
+        // re-rendered.
         postReview(this.props.channelID, name, rating, comment)
             .then(() => {
                 this.fetchChannelAndReviews();
@@ -49,6 +63,8 @@ class ChannelPage extends React.Component {
     }
 
     render() {
+        // If there are no reviews for this channel use an empty span, otherwise
+        // return a list of <Review /> components
         let reviews = <span></span>;
         if (this.state && this.state.reviews) {
             reviews = this.state.reviews.map(review => {
@@ -56,6 +72,10 @@ class ChannelPage extends React.Component {
             });
         }
 
+        /**
+         * Note: Currently we only have the 3 embedded youtube videos hardcoded,
+         * that is, the 3 same videos will always be displayed.
+         */
         return (
             <Grid className="channelPage">
                 <Row>
@@ -92,6 +112,7 @@ class ChannelPage extends React.Component {
                         <h2>Reviews</h2>
                         <Paper zDepth={1}>
                             {reviews}
+                            <br />
                         </Paper>
                     </Col>
 

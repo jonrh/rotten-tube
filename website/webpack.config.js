@@ -12,7 +12,8 @@ module.exports = {
                 exclude: /node_modules/, // but not in here
                 loader: "babel-loader",
                 query: {
-                    // tells babel-loader we want to use ES6 features
+                    // tells babel-loader we want to use ES6 features. The react
+                    // preset allows us to use JSX
                     presets: ["es2015", "react"]
                 }
             }

@@ -1,10 +1,23 @@
+"use strict";
+
 import React from "react";
 import { Button, Grid, Row, Col, Image } from "react-bootstrap";
 
 import CategoryOverview from "./categoryOverview";
 import { fetchChannelsByCategory } from "./../../data_fetching/rest.js";
-import { frontPageCategories } from "./../../mockData";
 
+/**
+ * The front page. Displays a logo and  3 YouTube channel categories.
+ *
+ *                          - Logo -
+ *
+ *     ---------------   ---------------   ---------------
+ *     |   Cooking   |   |    Comedy   |   |  Traveling  |
+ *     ---------------   ---------------   ---------------
+ *     | * Channel 1 |   | * Channel 1 |   | * Channel 1 |
+ *     |     ...     |   |     ...     |   |     ...     |
+ *     ---------------   ---------------   ---------------
+ */
 class FrontPage extends React.Component {
     render() {
         return (
