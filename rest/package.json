@@ -9,7 +9,7 @@
   ],
   "private": true,
   "license": "ISC",
-  "main": "source/main.js",
+  "main": "rest_server.js",
   "scripts": {},
   "devDependencies": {},
   "dependencies": {

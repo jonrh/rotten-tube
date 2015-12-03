@@ -14,7 +14,11 @@ app.use(cors());
 // Use body-parser so we can get content from POST requests
 app.use(bodyParser.json());
 
-app.get("/names", function(request, response) {
+/**
+ * Names endpoint, used for testing and helping us get started. Not used in the
+ * app anymore.
+ */
+app.get("/names/", function(request, response) {
     database.getAllNames()
         .then(allNames => response.send(allNames));
 });
@@ -30,22 +34,12 @@ app.get("/namesx/", function (request, response) {
 });
 
 /**
- * Returns a list of reviews for a given channel ID
+ * Reviews endpoints
  */
 app.get("/reviews/:id", function(request , response){
     //console.log("REST: reuqest to /reviews/:id");
     database.getReviewsById(request.params.id)
         .then(data => response.send(data));
-});
-
-app.get("/channels/category/:category", function(request , response){
-    database.getChannelsByCategory(request.params.category)
-        .then(data =>response.send(data));
-});
-
-app.get("/channels/:id", function(request , response){
-    database.getChannelById(request.params.id)
-        .then(data =>response.send(data));
 });
 
 app.post("/reviews", function(request, response) {
@@ -54,10 +48,16 @@ app.post("/reviews", function(request, response) {
         .then(data => response.send("Review posted"));
 });
 
+/**
+ * Channel endpoints
+ */
+app.get("/channels/category/:category", function(request , response){
+    database.getChannelsByCategory(request.params.category)
+        .then(data =>response.send(data));
+});
 
-app.get("/review", function(request , response){
-    //updateRating(id , new_rating )
-    database.updateRating(1, 1)
+app.get("/channels/:id", function(request , response){
+    database.getChannelById(request.params.id)
         .then(data =>response.send(data));
 });
 

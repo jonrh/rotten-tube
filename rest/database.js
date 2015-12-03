@@ -39,10 +39,8 @@ var Database = {
                         reject(error);
 
                     let name = rows[0].name;
-                    console.log(name);
+
                     resolve(name);
-
-
                 });
             }
         );
@@ -152,11 +150,8 @@ var Database = {
                 //console.log(Channel);  
                  resolve("Rating updated"); 
             }); 
-        } 
-
-        ); }
-
-
+        } ); 
+    }
 };
 
 module.exports = Database;
