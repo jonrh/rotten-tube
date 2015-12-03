@@ -16,15 +16,14 @@ this is not proper but we do it for the sake of simplicity. This assignment was
 primarily about getting our hands dirty with REST and GraphQL, not constructing 
 a beautiful React app on the inside.
 
-4. In retrospect we realised that using React for such a simple proof web app was 
+4. In retrospect we realised that using React for such a simple web app was 
 a total overkill. Manual DOM manipulation with jQuery would probably have been 
 more suitable given the UI was not the focus of the assignment.
 
 ## How to run
 Please note that this native web app depends on the REST API, it expects it to 
 be up and running on *localhost* on port 3000. Please see 
-[`rotten-tube/rest/readme.js`](/../rest/readme.md) for instructions to get it 
-up and running. 
+`rotten-tube/rest/readme.md` for instructions to get it up and running. 
 
 If you just cloned the repository open up a terminal and be located in the 
 `rotten-tube/website/` folder, then do:
