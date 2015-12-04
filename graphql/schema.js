@@ -37,7 +37,7 @@ var channelType = new GraphQLObjectType({
         reviews: {
             type: new GraphQLList(reviewType),
             description: "A channel can have zero to many reviews",
-            resolve: channel => db.getReviewsByChannelId(channel.id)
+            resolve: channel => db.getReviewsById(channel.id)
         }
     }
 });
