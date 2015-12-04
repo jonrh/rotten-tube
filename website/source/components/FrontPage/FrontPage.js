@@ -4,7 +4,6 @@ import React from "react";
 import { Button, Grid, Row, Col, Image } from "react-bootstrap";
 
 import CategoryOverview from "./categoryOverview";
-import { fetchChannelsByCategory } from "./../../data_fetching/rest.js";
 
 /**
  * The front page. Displays a logo and  3 YouTube channel categories.

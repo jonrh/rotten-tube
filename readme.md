@@ -1,6 +1,6 @@
 # RottenTube
 A group programming project in the course Distributed Systems COMP30220,
-University College Dublin. The aim of the project is to develop a system that
+University College Dublin. The aim of the project was to develop a system that
 utilises distributed technologies. For this project we chose to use
 [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) and
 [GraphQL](http://graphql.org/). The project that we picked was to create a
@@ -8,11 +8,11 @@ concept [Rotten Tomatoes](http://www.rottentomatoes.com/) for
 [YouTube](https://www.youtube.com/) channels.
 
 ## Architecture
-RottenTube is a 4 tier application. At the bottom is a MySQL server (will most
-likely be AWS hosted). On top of that is a REST web service. On top of that REST
-service is a GraphQL server. Finally the consuming application is a prototype
-web app that speaks to GraphQL. In this project are 4 sub folders, each 
-corresponding to the 4 previously mentioned tiers.
+RottenTube is a 3 tier application. At the bottom is a MySQL server hosted on 
+Amazon Web Services [RDS](https://aws.amazon.com/rds/). On top of that is a 
+REST web service and a GraphQL server. Finally the consuming application is a 
+prototype web app that speaks to both REST and GraphQL. In this project are 4 
+sub folders, each corresponding to the 4 previously mentioned tiers.
 
 ## Team members
 * [brettji](https://github.com/brettji)
