@@ -7,7 +7,8 @@ var GraphQLObjectType = graphql.GraphQLObjectType;
 var GraphQLList = graphql.GraphQLList;
 var GraphQLSchema = graphql.GraphQLSchema;
 
-var db = require("./database.js");
+// use the database connection from the rest folder.
+var db = require("../rest/database.js");
 
 
 var reviewType = new GraphQLObjectType({
