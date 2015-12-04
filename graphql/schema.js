@@ -1,154 +1,94 @@
-import {
-	graphql,
-		GraphQLSchema,
-		GraphQLObjectType,
-		GraphQLString,
-		GraphQLInt,
-		GraphQLSchema,
-		GraphQLList
-} from 'graphql';
-import Db from './db';
+"use strict";
 
-// Define type schema
-// Channels
+var graphql = require("graphql");
+var GraphQLInt = graphql.GraphQLInt;
+var GraphQLString = graphql.GraphQLString;
+var GraphQLObjectType = graphql.GraphQLObjectType;
+var GraphQLList = graphql.GraphQLList;
+var GraphQLSchema = graphql.GraphQLSchema;
 
-var channels = new GraphQLObjectType({
-name: 'channels',
-description: 'This represents a channel',
-fields: () => ({
-	id: {
-		type: GraphQLInt,
-		description: 'The id of the channel.',
-		resolve(channels) {
-		return channels.id;
-			}
-		},
-	name: {
-		type: GraphQLString,
-		description: 'The name of the channel',
-		resolve(channels) {
-		return channels.name;
-			}
-		},
-	url: {
-		type: GraphQLString,
-      		description: 'The url to the channel on youtube.',
-      		resolve(channels) {
-	     	return channels.url;
-      			}
-     		},
-	category: {
-		type: GraphQLString,
-      		description: 'The category to which this channel belongs.',
-      		resolve(channels) {
-	      	return channels.category;
-      			}
-	  	},
-	rating: {
-		type: GraphQLInt,
-      		description: 'the rating',
-      		resolve(channels) {
-	      	return channels.rating;
-      			}
-		}
-	})
+var db = require("./database.js");
+
+
+var reviewType = new GraphQLObjectType({
+    name: "review",
+    description: "A review for a YouTube channel",
+    fields: {
+        id: { type: GraphQLInt },
+        username: { type: GraphQLString },
+        comment: { type: GraphQLString },
+        rating: { type: GraphQLString },
+    }
 });
 
-// Reviews
-
-var reviews = new GraphQLObjectType({
-name: 'Reviews',
-description: 'Review creator',
-fields: () => ({
-	id: {
-		type: GraphQLInt,
-		description: 'The id of the Review.',
-		resolve(reviews) {
-		return reviews.id;
-			}
-
-		},
-	username: {
-		type: GraphQLString,
-		description: 'name of the user wrote the Review',
-		resolve(reviews) {
-		return reviews.username;
-			}
-		},
-	comment: {
-		type: GraphQLString,
-      		description: 'The comment.',
-      		resolve(reviews) {
-	      	return reviews.comment;
-      			}
-		 },
-	rating: {
-		type: GraphQLInt,
-      		description: 'The channel rating',
-      		resolve(reviews) {
-	      	return reviews.rating;
-      			}
-		},
-	channel_id: {
-		type: channels,
-      		description: 'The channel to which this review belongs.',
-      		resolve(parent, args) {
-	      	return Db.models.reviews.findAll({where: args});
-      			}
-		} 
-	})
-
+var channelType = new GraphQLObjectType({
+    name: "channel",
+    description: "Represents a YouTube channel",
+    fields: {
+        id: { type: GraphQLInt },
+        name: { type: GraphQLString },
+        url: { type: GraphQLString },
+        category: { type: GraphQLString },
+        rating: {
+            type: GraphQLInt,
+            description: "Average numeric rating for this channel"
+        },
+        reviews: {
+            type: new GraphQLList(reviewType),
+            description: "A channel can have zero to many reviews",
+            resolve: channel => db.getReviewsByChannelId(channel.id)
+        }
+    }
 });
 
-// Queries
-// Find channel based on the _args_ which are id, name, url and category.
+var channelCategoryType = new GraphQLObjectType({
+    name: "channelCategory",
+    description: "A category of YouTube channels",
+    fields: {
+        category: {
+            type: GraphQLString,
+            description: "One of: Cooking, Comedy, Traveling. For simplicity.",
+            resolve: category => category
+        },
+        channels: {
+            type: new GraphQLList(channelType),
+            resolve: category => db.getChannelsByCategory(category)
+        }
+    }
+});
 
 var query = new GraphQLObjectType({
-	name: 'Query',
-	description: 'This is a root query',
-	fields: () => ({
-		channel: {
-			type: new GraphQLList(channels),
-			args: {
-				id: {
-					type: GraphQLInt
-				},
-				name: {
-					type: GraphQLString
-				},
-				url: {
-					type: GraphQLString
-				},
-				category: {
-					type: GraphQLString
-				}
-			},
-			resolve(root, args) {
-				return Db.models.channelsfindAll({where: args});
-			}
-		},
-		review: {
-			type: new GraphQLList(reviews),
-			args: {
-				id: {
-					type: GraphQLInt
-				},
-				username: {
-					type: GraphQLString
-				},
-				channel_id: {
-					type: channels
-				}
-			},
-			resolve(root, args) {
-				return Db.models.channelsfindAll({where: args});
-			}
-		},
-	})
-})
+    name: 'Query',
+    fields: {
+        channel: {
+            type: new GraphQLList(channelType),
+            args: {
+                id: { type: GraphQLInt },
+                category: { type: GraphQLString }
+            },
+            resolve: function(root, args) {
+                // If we are querying by channel ID
+                if (args.id) {
+                    return db.getChannelById(args.id);
+                }
 
-var Schema = new GraphQLSchema({
-  query: Query
+                // If we are querying for channels belonging to specific category
+                if (args.category) {
+                    return db.getChannelsByCategory(args.category);
+                }
+            }
+        },
+        categories: {
+            type: new GraphQLList(channelCategoryType),
+            resolve: function(root, args) {
+                return ["Cooking", "Comedy", "Traveling"];
+            }
+        }
+    }
 });
 
-export default schema;
+var Schema = new GraphQLSchema({
+    query: query
+});
+
+module.exports = Schema;
