@@ -1,10 +1,3 @@
-/**
- * Please note that this is pretty much a copy of /rotten-tube/rest/database.js
- * Ideally we should refactor this out and maintain it in one place. The reason
- * why I'm not doing it is because I'm doing an allnighter and can't really be
- * bothered right now ┻━┻︵ \(°□°)/ ︵ ┻━┻
- */
-
 "use strict";
 
 var mysql = require('mysql');
