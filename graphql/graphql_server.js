@@ -4,15 +4,19 @@ var express = require("express");
 var schema = require("./schema.js");
 var graphql = require("graphql");
 var bodyParser = require("body-parser");
+var cors = require("cors");
 
 var app  = express();
 var PORT = 3001;
+
+// Make all request CORS enabled so our SPA website can get it's resources
+app.use(cors());
 
 // parse POST body as text
 app.use(bodyParser.text({ type: 'application/graphql' }));
 
 app.post('/graphql', (req, res) => {
-    console.log(req.body);
+    console.log("Got a query");
 
     // execute GraphQL!
     graphql.graphql(schema, req.body)
