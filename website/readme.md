@@ -2,6 +2,10 @@
 This folder contains code for the website. The front-end is a single page web
 app written in [React](https://facebook.github.io/react/).
 
+There are two versions of the site in two folders: */sources/using_graphql* and 
+*/sources/using_rest*. The primary difference is the GraphQL version does one 
+query to fetch a graph of all the data needed, minimising round trips.
+
 ## Notes
 1. Initially we were going to exclusively use *material-ui* for the UI. However we 
 discovered it requires a bit more CSS work than we had time for. We therefore 
@@ -19,6 +23,10 @@ a beautiful React app on the inside.
 4. In retrospect we realised that using React for such a simple web app was 
 a total overkill. Manual DOM manipulation with jQuery would probably have been 
 more suitable given the UI was not the focus of the assignment.
+
+5. The GraphQL version of the site is not fully using GrapqhQL. For example when 
+we submit a channel review we still use the REST API. This is because we didn't 
+have time to implement a mutation scheme in GraphQL.
 
 ## How to run
 Please note that this native web app depends on the REST API, it expects it to 
@@ -81,7 +89,11 @@ we cheated by putting some source files into it (notably *index.html* and
 *main.css*). Ideally all files written and maintained by us should be in the 
 *source* folder and then shoveled over by webpack 
 [plugin](https://github.com/kevlened/copy-webpack-plugin).
-* **source** The sou
+* **source** The JavaScript source files for the project
+    * **data_fetching**: Folder containing JavaScript code to interact with the 
+    REST and GraphQL server endpoints
+    * **using_grapqhl**: The website if it would use GraphQL
+    * **using_rest**: The website if it would use the REST API
 * **package.json**: [npm project file](https://docs.npmjs.com/files/package.json)
  specifying for example what third party code the project depends on.
 * **webpack.config.js** Webpack configuration file, see docs 
