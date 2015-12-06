@@ -7,12 +7,16 @@ utilises distributed technologies. For this project we chose to use
 concept [Rotten Tomatoes](http://www.rottentomatoes.com/) for
 [YouTube](https://www.youtube.com/) channels.
 
+![Example usage of the site](https://raw.githubusercontent.com/jonrh/rotten-tube/master/docs/rottenTubeGif.gif)
+
 ## Architecture
 RottenTube is a 3 tier application. At the bottom is a MySQL server hosted on 
 Amazon Web Services [RDS](https://aws.amazon.com/rds/). On top of that is a 
 REST web service and a GraphQL server. Finally the consuming application is a 
 prototype web app that speaks to both REST and GraphQL. In this project are 4 
 sub folders, each corresponding to the 4 previously mentioned tiers.
+
+![System Architecture](https://raw.githubusercontent.com/jonrh/rotten-tube/master/docs/architecture.png)
 
 ## Team members
 * [brettji](https://github.com/brettji)
